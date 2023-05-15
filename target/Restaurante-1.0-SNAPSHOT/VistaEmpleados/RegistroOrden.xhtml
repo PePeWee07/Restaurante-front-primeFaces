@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <style>
+        p {
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
+
+    <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+        <h:head>
+
+        </h:head>
+        <h:body>
+            <h:form>
+                <div>
+                    <p:card style="width: 25rem; margin-bottom: 2em">
+                    <f:facet name="title">
+                        Regitrar Orden
+                    </f:facet>
+                </p:card>
+                
+                <br/>
+                <span class="ui-float-label">
+                    <p:inputText id="float-input1" value=" " />
+                    <p:outputLabel for="@previous" value="Menus:" />
+                </span>
+                
+                <br/>
+                <span class="ui-float-label">
+                    <p:inputText id="float-input2" value=" " />
+                    <p:outputLabel for="@previous" value="Clientes:" />
+                </span>
+                
+                <br/>
+                <span class="ui-float-label">
+                    <p:inputText id="float-input3" value=" " />
+                    <p:outputLabel for="@previous" value="Empleados:" />
+                </span>
+                
+                <br/>
+                <span class="ui-float-label">
+                    <p:inputText id="float-input4" value=" " />
+                    <p:outputLabel for="@previous" value="Numero de mesa:" />
+                </span>
+                
+                <br/>
+                <span class="ui-float-label">
+                    <p:inputText id="float-input5" value=" " />
+                    <p:outputLabel for="@previous" value="Fecha de pedido:" />
+                </span>
+                
+                <br/>
+                <span class="ui-float-label">
+                    <p:inputText id="float-input6" value=" " />
+                    <p:outputLabel for="@previous" value="cantidad:" />
+                </span>
+                <br/>
+                </div>
+
+                
+                
+                <p:growl id="growl" showDetail="true" />
+                <p:card style="width: 25rem; margin-bottom: 2em">
+                    <f:facet name="title">
+                        Tabla de Ordenes
+                    </f:facet>
+                </p:card>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="CONSULTAR" icon="pi pi-search" actionListener="#{servidorController.callApiOrdenes}" process="@form" update="tblServidores, growl" styleClass="mr-2"/>                        
+                        <p:commandButton value="LIMPIAR" icon="pi pi-minus" actionListener="#{servidorController.limpiar}" process="@form" update="tblServidores, growl" styleClass="ui-button-danger"/> 
+                    </p:toolbarGroup>
+                </p:toolbar>                
+                <div class="card">
+                    <p:dataTable id="tblServidores" var="servidor" value="#{servidorController.lstOrdenes}" >
+                        <p:column headerText="ID">
+                            <h:outputText value="#{servidor.id_orden}" />
+                        </p:column>
+
+                        <p:column headerText="Nombre del plato" sortBy="#{servidor.menu.nombre_plato}" filterBy="#{servidor.menu.nombre_plato}" filterMatchMode="contains">
+                            <h:outputText value="#{servidor.menu.nombre_plato}" />
+                        </p:column>
+
+                        <p:column headerText="Cliente" sortBy="#{servidor.cliente.nombre_cliente}" filterBy="#{servidor.cliente.nombre_cliente}" filterMatchMode="contains">
+                            <h:outputText value="#{servidor.cliente.nombre_cliente}" />
+                        </p:column>
+                        
+                        <p:column headerText="Empleado" sortBy="#{servidor.empleado.nombre_empleado}" filterBy="#{servidor.empleado.nombre_empleado}" filterMatchMode="contains">
+                            <h:outputText value="#{servidor.empleado.nombre_empleado}" />
+                        </p:column>
+
+                        <p:column headerText="Numero de mesa">
+                            <h:outputText value="#{servidor.num_mesa}" />
+                        </p:column>
+                        
+                        <p:column headerText="Fecha pedido">
+                            <h:outputText value="#{servidor.fecha_pedido.substring(0, 10)}" />
+                        </p:column>
+                        
+                        <p:column headerText="Cantidad">
+                            <h:outputText value="#{servidor.cantidad}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </h:body>
+    </f:view>
+
+</html>

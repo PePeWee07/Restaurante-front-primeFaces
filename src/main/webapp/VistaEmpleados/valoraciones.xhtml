@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <style>
+        p {
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
+
+    <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+        <h:head>
+
+        </h:head>
+        <h:body>
+            <h:form>
+                <p:growl id="growl" showDetail="true" />
+                <p:card style="width: 25rem; margin-bottom: 2em">
+                    <f:facet name="title">
+                        Tabla de Valoraciones
+                    </f:facet>
+                </p:card>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="CONSULTAR" icon="pi pi-search" actionListener="#{servidorController.callApiValoraciones}" process="@form" update="tblServidores, growl" styleClass="mr-2"/>                        
+                        <p:commandButton value="LIMPIAR" icon="pi pi-minus" actionListener="#{servidorController.limpiar}" process="@form" update="tblServidores, growl" styleClass="ui-button-danger"/> 
+                    </p:toolbarGroup>
+                </p:toolbar>                
+                <div class="card">
+                    <p:dataTable id="tblServidores" var="servidor" value="#{servidorController.lstValoraciones}" >
+                        <p:column headerText="ID">
+                            <h:outputText value="#{servidor.id_valoracion}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha">
+                            <h:outputText value="#{servidor.fecha_valoracion.substring(0, 10)}" />
+                        </p:column>
+
+                        <p:column headerText="Hora valoracion">
+                            <h:outputText value="#{servidor.hora_valoracion}" />
+                        </p:column>
+
+                        <p:column headerText="Comentario">
+                            <h:outputText value="#{servidor.comentario}" />
+                        </p:column>
+                        <p:column headerText="cliente">
+                            <h:outputText value="#{servidor.cliente.id_cliente}" />
+                        </p:column>
+                        <p:column headerText="Nombre plato">
+                            <h:outputText value="#{servidor.menu.nombre_plato}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </h:body>
+    </f:view>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <style>
+        p {
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
+
+    <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+        <h:head>
+
+        </h:head>
+        <h:body>
+            <h:form>
+                <p:growl id="growl" showDetail="true" />
+                <p:card style="width: 25rem; margin-bottom: 2em">
+                    <f:facet name="title">
+                        Lista de Ingredintes
+                    </f:facet>
+                </p:card>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="CONSULTAR" icon="pi pi-search" actionListener="#{servidorController.callApiIngredientes}" process="@form" update="tblServidores, growl" styleClass="mr-2"/>                        
+                        <p:commandButton value="LIMPIAR" icon="pi pi-minus" actionListener="#{servidorController.limpiar}" process="@form" update="tblServidores, growl" styleClass="ui-button-danger"/> 
+                    </p:toolbarGroup>
+                </p:toolbar>                
+                <div class="card">
+                    <p:dataTable id="tblServidores" var="servidor" value="#{servidorController.lstIngredientes}" >
+                        <p:column headerText="ID">
+                            <h:outputText value="#{servidor.id_ingrediente}" />
+                        </p:column>
+                        
+                        <p:column headerText="ID Proveedor">
+                            <h:outputText value="#{servidor.proveedores.id_proveedor}" />
+                        </p:column>
+
+                        <p:column headerText="Nombre" sortBy="#{servidor.nombre_ingrediente}" filterBy="#{servidor.nombre_ingrediente}" filterMatchMode="contains">
+                            <h:outputText value="#{servidor.nombre_ingrediente}" />
+                        </p:column>
+
+                        <p:column headerText="Cantidad" sortBy="#{servidor.cantidad_disponible}" filterBy="#{servidor.cantidad_disponible}" filterMatchMode="contains">
+                            <h:outputText value="#{servidor.cantidad_disponible}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha de Inicio">
+                            <h:outputText value="#{servidor.fecha_caducidad.substring(0, 10)}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </h:body>
+    </f:view>
+
+</html>

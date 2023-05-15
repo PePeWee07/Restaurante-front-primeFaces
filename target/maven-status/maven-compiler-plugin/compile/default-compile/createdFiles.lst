@@ -1,0 +1,5 @@
+com\test\controller\ServidorController.class
+com\test\pojo\Proveedores.class
+com\test\service\SpringRestConsumer.class
+com\test\restaurante\resources\JakartaEE91Resource.class
+com\test\restaurante\JakartaRestConfiguration.class
